@@ -12,27 +12,27 @@ const Header = (props) => {
       <NavMenu>
         <a href='/home'>
           <img src='/images/home-icon.svg' alt='HOME' />
-          <span>HOME</span>
+          <span id="home">HOME</span>
         </a>
         <a href='/search'>
           <img src='/images/search-icon.svg' alt='SEARCH' />
-          <span>SEARCH</span>
+          <span id='search'>SEARCH</span>
         </a>
         <a href='/watchlist'>
           <img src='/images/watchlist-icon.svg' alt='WATCHLIST' />
-          <span>WATCHLIST</span>
+          <span id='watchlist'>WATCHLIST</span>
         </a>
         <a href='/originals'>
           <img src='/images/original-icon.svg' alt='ORIGINALS' />
-          <span>ORIGINALS</span>
+          <span id='originals'>ORIGINALS</span>
         </a>
         <a href='/movies'>
           <img src='/images/movie-icon.svg' alt='MOVIES' />
-          <span>MOVIES</span>
+          <span id='movies'>MOVIES</span>
         </a>
         <a href='/series'>
           <img src='/images/series-icon.svg' alt='SERIES' />
-          <span>SERIES</span>
+          <span id='series'>SERIES</span>
         </a>
       </NavMenu>
       <Login>Login</Login>
