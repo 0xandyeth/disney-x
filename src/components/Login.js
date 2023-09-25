@@ -7,7 +7,7 @@ const Login =(props)=>{
             <CTA>
                 <CTALogoOne src="/images/cta-logo-one.svg" alt=""/>
                 <SignUp>GET ALL THERE</SignUp>
-                <Description>Get Premier Access to Raya and the Latest Drag</Description>
+                <Description>Get Premier Access to Raya and the Latest Drag Movies</Description>
                 <CTALogoTwo src="/images/cta-logo-two.png" alt=""/>
             </CTA>
             <BgImage/>
