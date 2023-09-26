@@ -1,6 +1,20 @@
+import React,{useState,useEffect} from 'react';
+import {useHistory} from 'react-router-dom'
 import styled from 'styled-components';
 
 const Header = (props) => {
+  const history = useHistory();
+  const handleAuth=()=>{
+      // login process
+      history.push('/home');
+  }
+  
+  /**
+   * if user exists, go to homepage
+   */
+  useEffect(()=>{
+    // call api 
+  },[])
   return (
     <Nav>
       <Logo>
@@ -35,7 +49,7 @@ const Header = (props) => {
           <span id='series'>SERIES</span>
         </a>
       </NavMenu>
-      <Login>Login</Login>
+      <Login onClick={handleAuth}>Login</Login>
     </Nav>
   );
 };
@@ -135,6 +149,7 @@ const NavMenu = styled.div`
 const Login = styled.a`
  background-color :rgba(0,0,0,0.5);
  padding:8px 15px;
+ cursor:pointer;
  text-transform:uppercase;
  letter-spacing:1.5px;
  border:1px solid #f9f9f9;
