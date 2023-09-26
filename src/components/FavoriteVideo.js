@@ -8,7 +8,7 @@ const FavoriteVideo =(props)=>{
         <Content>
          <Wrap>
             {/** <Link to={`/detail` + movie.id}> */}
-           <Link to="/">
+           <Link to="/detail/1">
              <img src='/images/slider-badag.jpg' alt=''/>
            </Link>
          </Wrap>
