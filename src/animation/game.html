@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      #board {
+        width: 300px;
+        height: 300px;
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <canvas id="board"> </canvas>
+      <h2>X position</h2>
+      <p id="xp"></p>
+      <h2> Y position</h2>
+      <p id="yp"></p>
+    </main>
+    <script>
+ 
+ const canvas = document.getElementById("board");
+        const ctx = canvas.getContext("2d");
+
+        // Function to generate a random position
+        function getRandomPosition() {
+            const x =  Math.floor(Math.random() * (canvas.width - 50)); // Subtracting 50 to keep it within canvas bounds
+            const y =  Math.floor(Math.random() * (canvas.height - 50)); // Subtracting 50 to keep it within canvas bounds
+          
+            return { x, y };
+        }
+
+        // Function to get random color
+        function getRandomColor(){
+          const r = Math.floor(Math.random() * 256);
+          const g = Math.floor(Math.random() * 256);
+          const b = Math.floor(Math.random() * 256);
+          
+          return `rgb(${r},${g},${b})`;
+
+        }
+
+        function showPosition(x,y){
+          document.getElementById('xp').innerHTML =`<span>${x}</span>`;
+          document.getElementById('yp').innerHTML =`<span>${y}</span>`;   
+        }
+
+        // Function to draw a rectangle
+        function drawRectangle(x, y) {
+          
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+            ctx.fillStyle = getRandomColor() ; // Rectangle color
+          //  ctx.fillRect(x, y, 50, 50); // Rectangle dimensions
+          ctx.beginPath();
+          ctx.arc(x,y,10,0,2*Math.PI);
+          ctx.fill();
+           
+        }
+
+        // Function to update the animation
+        function animate() {
+            const position = getRandomPosition(); // Get a random position
+            showPosition(position.x,position.y);
+            if(position.x < canvas.width && position.y < canvas.height){
+            drawRectangle(position.x, position.y); // Draw the rectangle
+            //requestAnimationFrame(animate); // Repeat the animation
+           setTimeout(animate,1000)
+            }
+          }
+
+        // Start the animation
+        animate();
+  
+    </script>
+  </body>
+</html>
