@@ -5,7 +5,7 @@
       #board {
         width: 300px;
         height: 300px;
-        background-color: black;
+        background-color: blue;
       }
     </style>
   </head>
@@ -14,63 +14,197 @@
       <canvas id="board"> </canvas>
       <h2>X position</h2>
       <p id="xp"></p>
-      <h2> Y position</h2>
+      <h2>Y position</h2>
       <p id="yp"></p>
     </main>
     <script>
+      // class Person {
+      //   constructor(x, y, ctx, width, height) {
+      //     this.x = x;
+      //     this.y = y;
+      //     this.ctx = ctx;
+      //     this.width = width;
+      //     this.height = height;
+      //     this.angle = 0;
+      //   }
+
+      //   draw() {
+      //     console.log(this.ctx);
+      //     this.ctx.save(); // save current context
+      //     this.ctx.fillStyle = 'black';
+      //     this.ctx.translate(this.x + this.width /2 ,this.y+this.height/2); //rotate in center
+      //     this.ctx.rotate(this.angle);// apply rotate angle
+      //     this.ctx.fillRect(this.width/2 ,this.height/2,this.width,this.height); // draw rect angle in center
+      //     this.ctx.restore(); // last context 
+      //     // requestAnimationFrame(this.draw);
+      //   }
+      //   moveUp(){
+      //    this.y -=1;
+      //   }
+      //   moveDown(){
+      //   this.y +=1;
+      //   }
+      //   moveLeft(){
+      //   this.x -=1;
+      //   }
+      //   moveRight(){
+      //    this.x +=1;
+      //   }
+
+      //   rotateRight(){
+      //     this.angle += Math.PI /180;
+      //   }
+
+      //   rotateLeft(){
+      //     this.angle -= Math.PI /180;
+
+      //   }
+
+      //   stop() {}
+      // }
+      // const canvas = document.getElementById('board');
+      // const ctx = canvas.getContext('2d');
+
+      // // Function to generate a random position
+      // // function getRandomPosition() {
+      // //     const x =  Math.floor(Math.random() * (canvas.width - 50)); // Subtracting 50 to keep it within canvas bounds
+      // //     const y =  Math.floor(Math.random() * (canvas.height - 50)); // Subtracting 50 to keep it within canvas bounds
+
+      // //     return { x, y };
+      // // }
+
+      // // // Function to get random color
+      // // function getRandomColor(){
+      // //   const r = Math.floor(Math.random() * 256);
+      // //   const g = Math.floor(Math.random() * 256);
+      // //   const b = Math.floor(Math.random() * 256);
+
+      // //   return `rgb(${r},${g},${b})`;
+
+      // // }
+
+      // // function showPosition(x,y){
+      // //   document.getElementById('xp').innerHTML =`<span>${x}</span>`;
+      // //   document.getElementById('yp').innerHTML =`<span>${y}</span>`;
+      // // }
+
+      // // // Function to draw a rectangle
+      // // function drawRectangle(x, y) {
+
+      // //     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+      // //     ctx.fillStyle = getRandomColor() ; // Rectangle color
+      // //   //  ctx.fillRect(x, y, 50, 50); // Rectangle dimensions
+      // //   ctx.beginPath();
+      // //   ctx.arc(x,y,10,0,2*Math.PI);
+      // //   ctx.fill();
+
+      // // }
+
+      // // // Function to update the animation
+      // // function animate() {
+      // //     const position = getRandomPosition(); // Get a random position
+      // //     showPosition(position.x,position.y);
+      // //     if(position.x < canvas.width && position.y < canvas.height){
+      // //     drawRectangle(position.x, position.y); // Draw the rectangle
+      // //     //requestAnimationFrame(animate); // Repeat the animation
+      // //    setTimeout(animate,1000)
+      // //     }
+      // //   }
  
- const canvas = document.getElementById("board");
-        const ctx = canvas.getContext("2d");
+      // const person = new Person(100, 100, ctx, 25, 25);
+      
 
-        // Function to generate a random position
-        function getRandomPosition() {
-            const x =  Math.floor(Math.random() * (canvas.width - 50)); // Subtracting 50 to keep it within canvas bounds
-            const y =  Math.floor(Math.random() * (canvas.height - 50)); // Subtracting 50 to keep it within canvas bounds
+      //   document.addEventListener('keypress',(event)=>{
+      //     if(event.key === 'w'){
+      //       person.moveUp();
           
-            return { x, y };
-        }
+      //     }else if(event.key ==='s'){
+      //        person.moveDown();
+      //     }else if(event.key === 'r'){
+      //        person.rotateRight()
+      //     }else if(event.key ==='a'){
+      //       person.moveLeft();
+      //     }else if(event.key === 'd'){
+      //       person.moveRight();
+      //     }else if(event.key === 'q'){
+      //       person.rotateLeft();
+      //     }
+      //     ctx.clearRect(0,0,canvas.width,canvas.height);
+      //       person.draw();
+      //   });
+      //   document.addEventListener('keyup', person.move);
+      //   // initial draw
+      //   person.draw();
+   
+      // Start the animation
+      // animate();
+   
+     // 오브젝트 클래스 정의
+class GameObject {
+    constructor(x, y, width, height, color) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+        this.angle = 0; // 초기 회전 각도
+        this.speed = 5; // 움직임 속도 (설정에 맞게 조절)
+    }
 
-        // Function to get random color
-        function getRandomColor(){
-          const r = Math.floor(Math.random() * 256);
-          const g = Math.floor(Math.random() * 256);
-          const b = Math.floor(Math.random() * 256);
-          
-          return `rgb(${r},${g},${b})`;
+    draw(ctx) {
+        ctx.save(); // 현재 컨텍스트 설정을 저장
+        ctx.translate(this.x + this.width / 2, this.y + this.height / 2); // 중심을 기준으로 회전하기 위해 이동
+        ctx.rotate(this.angle); // 회전 각도 적용
+        ctx.fillStyle = this.color;
+        ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height); // 중심 기준으로 사각형 그리기
+        ctx.restore(); // 이전 컨텍스트 설정 복원
+    }
 
-        }
+    move() {
+        // 현재 회전 각도를 기반으로 이동 방향 계산
+        const dx = Math.cos(this.angle) * this.speed;
+        const dy = Math.sin(this.angle) * this.speed;
+        
+        this.x += dx;
+        this.y += dy;
+    }
 
-        function showPosition(x,y){
-          document.getElementById('xp').innerHTML =`<span>${x}</span>`;
-          document.getElementById('yp').innerHTML =`<span>${y}</span>`;   
-        }
+    rotateClockwise() {
+        this.angle -= Math.PI / 180; // 시계 방향으로 회전 (1도씩 회전, 설정에 맞게 조절)
+    }
+}
 
-        // Function to draw a rectangle
-        function drawRectangle(x, y) {
-          
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-            ctx.fillStyle = getRandomColor() ; // Rectangle color
-          //  ctx.fillRect(x, y, 50, 50); // Rectangle dimensions
-          ctx.beginPath();
-          ctx.arc(x,y,10,0,2*Math.PI);
-          ctx.fill();
-           
-        }
+// 캔버스와 컨텍스트 가져오기
+const canvas = document.getElementById("board");
+const ctx = canvas.getContext("2d");
 
-        // Function to update the animation
-        function animate() {
-            const position = getRandomPosition(); // Get a random position
-            showPosition(position.x,position.y);
-            if(position.x < canvas.width && position.y < canvas.height){
-            drawRectangle(position.x, position.y); // Draw the rectangle
-            //requestAnimationFrame(animate); // Repeat the animation
-           setTimeout(animate,1000)
-            }
-          }
+// 오브젝트 인스턴스 생성
+const object = new GameObject(100, 100, 20,20, "green");
 
-        // Start the animation
-        animate();
-  
-    </script>
+// 게임 루프 설정
+function gameLoop() {
+    // 캔버스 지우고 새로 그리기
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    object.draw(ctx);
+    
+    requestAnimationFrame(gameLoop);
+}
+
+// "keydown" 이벤트를 듣고 처리
+document.addEventListener("keydown", (event) => {
+    if (event.key === "w") {
+        object.move();
+    } else if (event.key === "r") {
+        object.rotateClockwise();
+    }
+});
+
+// 초기 오브젝트 그리기
+object.draw(ctx);
+
+// 게임 루프 시작
+gameLoop();
+   
+   </script>
   </body>
 </html>
